@@ -9,7 +9,7 @@ export async function get({ params }) {
 
 	try {
 		const response = await axios.get(`https://api.jpvhub.com/api/videos/${code}?lang=en`);
-		console.log(response);
+		// console.log(response);
 		name = response.data.details.resourceName ?? false;
 		img = response.data?.details?.imgPath ?? false;
 		if (response.data?.details?.videoList) {
@@ -22,7 +22,7 @@ export async function get({ params }) {
 							`https://asianclub.tv/api/source/${ac.substr(ac.lastIndexOf('/') + 1)}`,
 							querystring.stringify({ r: '', d: 'asianclub.tv' })
 						);
-						console.log(response);
+						// console.log(response);
 						video = response.data.data;
 					} catch (error) {
 						console.error(error);
