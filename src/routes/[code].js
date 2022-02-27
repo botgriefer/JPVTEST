@@ -2,18 +2,17 @@ import https, { Agent } from 'https';
 import axios from 'axios';
 import querystring from 'querystring';
 
-function requestRedirectAsync(url) {
+function requestRedirectAsync(path) {
 	return new Promise((resolve, reject) => {
 		const options = {
 			hostname: 'fvs.io',
 			port: 443,
-			path: '/redirector?token=U0EyRVR4Y2NHZzJOcFVWdktsYUpqejN4WUZJVEYzaGV6bm43RTk3bUE4VGdXT3BDUW9ua2pjUWFWL0JrSGRsZ1pzN0xhUDB6TTBqMW80RU9kbEdmQXhKcEFhNWlwODdIYytocTB1NjUwUERwVXRFNGNhNU1uMzRaRVZnSzBoRHdFSHNFOVR5Tyt3S3h1RTVjZDg4MEtNZWkwWjNyeXUzZWZaVT06cU1iTDBHVCtQWkcxemJBSEsza2srdz09cHhL',
+			path,
 			method: 'GET',
 			agent: new Agent({ rejectUnauthorized: false })
 		};
 		https
 			.get(options, (res) => {
-				console.log(res);
 				resolve(res.headers.location);
 			})
 			.on('error', (e) => {
@@ -48,7 +47,7 @@ export async function get({ params }) {
 						// console.log(response.data.data);
 						let v = [];
 						for (let vid of response.data.data) {
-							const file = await requestRedirectAsync(vid.file);
+							const file = await requestRedirectAsync(vid.file.substr(14));
 							v.push({
 								label: vid.label,
 								file
