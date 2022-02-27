@@ -1,7 +1,6 @@
 <script type="text/javascript">
 	import { writable } from 'svelte/store';
 	const data = writable({});
-	const current = writable("");
 	let code = "";
 	let src = "";
 
@@ -29,11 +28,6 @@
 {/if}
 {#if $data.video}
 	{#each $data.video as vid}
-		<button on:click={() => {
-			current.set(vid.file);
-		}}>{vid.label} {vid.file == $current ? "Active" : ""}</button>		
+		<a href={vid.file} target="_blank" rel="noopener noreferrer">{vid.label}</a>		
 	{/each}
-{/if}
-{#if $current}
-	<iframe title="video" src={$current} allowfullscreen></iframe>
 {/if}
